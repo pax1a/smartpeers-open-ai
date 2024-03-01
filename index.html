@@ -15,6 +15,7 @@
             justify-content: center;
             align-items: center;
             height: 100%;
+            flex-direction: column; /* Align buttons vertically */
         }
         #results-container {
             display: none; /* Initially hide the results container */
@@ -29,7 +30,8 @@
 <div id="search-container">
     <div>
         <input type="text" id="search-input" class="form-control mb-2" placeholder="Enter a company name">
-        <button id="search-button" class="btn btn-primary">Search</button>
+        <button id="search-button" class="btn btn-primary mb-2">Search</button>
+        <button id="reset-button" class="btn btn-secondary">Reset</button> <!-- Reset button -->
     </div>
 </div>
 
@@ -52,7 +54,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.getElementById('search-button').addEventListener('click', function() {
-        // Example data, in real scenario, you would fetch this from an API
         const apiData = {
             'peer_companies': [
                 {'company_name': 'Microsoft', 'ticker': 'MSFT', 'business_description': 'A technology company that develops, licenses, and supports software products, services, and devices worldwide.'},
@@ -76,7 +77,6 @@
                 tableBody.innerHTML += row;
             });
 
-            // Dynamically add navbar if it doesn't exist
             if (!document.querySelector('.navbar')) {
                 let navbar = `<nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <a class="navbar-brand" href="#">SmartPeers.ai</a>
@@ -84,12 +84,24 @@
                 document.body.insertAdjacentHTML('afterbegin', navbar);
             }
 
-            // Adjust layout and display results
             document.getElementById('search-container').style.height = 'auto';
             document.getElementById('results-container').style.display = 'block';
         } else {
             console.error('Data is undefined or not in expected format');
         }
+    });
+
+    document.getElementById('reset-button').addEventListener('click', function() {
+        // Hide the results container
+        document.getElementById('results-container').style.display = 'none';
+
+        // Remove the navbar if it exists
+        let navbar = document.querySelector('.navbar');
+        if (navbar) navbar.remove();
+
+        // Reset the search container to center the search bar
+        document.getElementById('search-container').style.height = '100%';
+        document.getElementById('search-input').value = ''; // Clear search input
     });
 </script>
 </body>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minimalistic Company Search</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; margin-top: 20px; }
+  #searchResult { margin-top: 20px; display: none; }
+  table { margin: auto; border-collapse: collapse; }
+  th, td { border: 1px solid black; padding: 8px; }
+  th { background-color: #f2f2f2; }
+</style>
+</head>
+<body>
+<div>
+  <input type="text" id="searchInput" placeholder="Enter a company name">
+  <button onclick="searchCompany()">Search</button>
+</div>
+<div id="searchResult">
+  <table>
+    <thead>
+      <tr>
+        <th>Company Name</th>
+        <th>Ticker</th>
+        <th>Business Description</th>
+      </tr>
+    </thead>
+    <tbody id="resultBody">
+    </tbody>
+  </table>
+</div>
+
+<script>
+// Simulate fetching data from an API
+function fetchCompanyData() {
+  return {
+    'peer_companies': [
+      {'company_name': 'Microsoft', 'ticker': 'MSFT', 'business_description': 'A technology company that develops, licenses, and supports software products, services, and devices worldwide.'},
+      {'company_name': 'Oracle', 'ticker': 'ORCL', 'business_description': 'Oracle provides products and services that address all aspects of corporate IT environments, including application, platform and infrastructure.'},
+      {'company_name': 'Amazon', 'ticker': 'AMZN', 'business_description': 'Amazon is a multinational technology company specializing in ecommerce, cloud computing, and artificial intelligence.'},
+      {'company_name': 'Alphabet', 'ticker': 'GOOGL', 'business_description': 'Alphabet is a multinational conglomerate that was created as a parent company of Google, it includes many businesses such as Google, Calico, GV, CapitalG, Verily, Waymo, X and others.'},
+      {'company_name': 'Cisco Systems', 'ticker': 'CSCO', 'business_description': 'Cisco Systems is engaged in designing and selling a range of technologies across networking, security, collaboration, applications, and the cloud.'}
+    ]
+  };
+}
+
+function searchCompany() {
+  const data = fetchCompanyData(); // Here you would normally fetch from an API
+  const resultBody = document.getElementById('resultBody');
+  resultBody.innerHTML = ''; // Clear previous results
+
+  data.peer_companies.forEach(company => {
+    const row = `<tr>
+      <td>${company.company_name}</td>
+      <td>${company.ticker}</td>
+      <td>${company.business_description}</td>
+    </tr>`;
+    resultBody.innerHTML += row;
+  });
+
+  document.getElementById('searchResult').style.display = 'block'; // Show the results
+}
+</script>
+</body>
+</html>

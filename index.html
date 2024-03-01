@@ -12,6 +12,9 @@
         .container {
             max-width: 600px;
         }
+        #results-container {
+            display: none; /* Initially hide the results container */
+        }
     </style>
 </head>
 <body>
@@ -19,18 +22,20 @@
         <h2 class="mb-4">Company Search</h2>
         <input type="text" id="search-input" class="form-control mb-4" placeholder="Enter a company name">
         <button id="search-button" class="btn btn-primary mb-4">Search</button>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Company Name</th>
-                    <th>Ticker</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody id="result-table">
-                <!-- Results will be inserted here -->
-            </tbody>
-        </table>
+        <div id="results-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Ticker</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody id="result-table">
+                    <!-- Results will be inserted here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -59,6 +64,9 @@
                 </tr>`;
                 tableBody.innerHTML += row;
             });
+
+            // Show the results container
+            document.getElementById('results-container').style.display = 'block';
         });
     </script>
 </body>

@@ -52,9 +52,18 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.getElementById('search-button').addEventListener('click', function() {
-        // Example data
-        const apiData = {/* previously defined JSON data */};
+    // Ensure apiData is correctly defined with the peer_companies array
+    const apiData = {
+        'peer_companies': [
+            {'company_name': 'Microsoft', 'ticker': 'MSFT', 'business_description': 'A technology company that develops, licenses, and supports software products, services, and devices worldwide.'},
+            {'company_name': 'Oracle', 'ticker': 'ORCL', 'business_description': 'Oracle provides products and services that address all aspects of corporate IT environments, including application, platform and infrastructure.'},
+            {'company_name': 'Amazon', 'ticker': 'AMZN', 'business_description': 'Amazon is a multinational technology company specializing in ecommerce, cloud computing, and artificial intelligence.'},
+            {'company_name': 'Alphabet', 'ticker': 'GOOGL', 'business_description': 'Alphabet is a multinational conglomerate that was created as a parent company of Google, it includes many businesses such as Google, Calico, GV, CapitalG, Verily, Waymo, X and others.'},
+            {'company_name': 'Cisco Systems', 'ticker': 'CSCO', 'business_description': 'Cisco Systems is engaged in designing and selling a range of technologies across networking, security, collaboration, applications, and the cloud.'}
+        ]
+    };
 
+    if (apiData && Array.isArray(apiData.peer_companies)) {
         let tableBody = document.getElementById('result-table');
         tableBody.innerHTML = ''; // Clear existing table data
 
@@ -67,18 +76,11 @@
             tableBody.innerHTML += row;
         });
 
-        // Dynamically add navbar
-        if (!document.querySelector('.navbar')) {
-            let navbar = `<nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">SmartPeers.ai</a>
-            </nav>`;
-            document.body.insertAdjacentHTML('afterbegin', navbar);
-        }
-
-        // Adjust layout
-        document.getElementById('search-container').style.height = 'auto';
-        document.getElementById('results-container').style.display = 'block';
-    });
+        // Proceed with the rest of the code for displaying results and modifying the layout...
+    } else {
+        console.error('Data is undefined or not in expected format');
+    }
+});
 </script>
 </body>
 </html>

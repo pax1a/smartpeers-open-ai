@@ -6,68 +6,79 @@
     <title>Company Search</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            padding-top: 20px;
+        body, html {
+            height: 100%;
+            margin: 0;
         }
-        .container {
-            max-width: 600px;
+        #search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
         }
         #results-container {
             display: none; /* Initially hide the results container */
         }
+        .navbar {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2 class="mb-4">Company Search</h2>
-        <input type="text" id="search-input" class="form-control mb-4" placeholder="Enter a company name">
-        <button id="search-button" class="btn btn-primary mb-4">Search</button>
-        <div id="results-container">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Company Name</th>
-                        <th>Ticker</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody id="result-table">
-                    <!-- Results will be inserted here -->
-                </tbody>
-            </table>
-        </div>
+
+<div id="search-container">
+    <div>
+        <input type="text" id="search-input" class="form-control mb-2" placeholder="Enter a company name">
+        <button id="search-button" class="btn btn-primary">Search</button>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        document.getElementById('search-button').addEventListener('click', function() {
-            const apiData = {
-                'peer_companies': [
-                    {'company_name': 'Microsoft', 'ticker': 'MSFT', 'business_description': 'A technology company that develops, licenses, and supports software products, services, and devices worldwide.'},
-                    {'company_name': 'Oracle', 'ticker': 'ORCL', 'business_description': 'Oracle provides products and services that address all aspects of corporate IT environments, including application, platform and infrastructure.'},
-                    {'company_name': 'Amazon', 'ticker': 'AMZN', 'business_description': 'Amazon is a multinational technology company specializing in ecommerce, cloud computing, and artificial intelligence.'},
-                    {'company_name': 'Alphabet', 'ticker': 'GOOGL', 'business_description': 'Alphabet is a multinational conglomerate that was created as a parent company of Google, it includes many businesses such as Google, Calico, GV, CapitalG, Verily, Waymo, X and others.'},
-                    {'company_name': 'Cisco Systems', 'ticker': 'CSCO', 'business_description': 'Cisco Systems is engaged in designing and selling a range of technologies across networking, security, collaboration, applications, and the cloud.'}
-                ],
-                'tickers': ['MSFT', 'ORCL', 'AMZN', 'GOOGL', 'CSCO']
-            };
+<div id="results-container" class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Ticker</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody id="result-table">
+            <!-- Results will be inserted here -->
+        </tbody>
+    </table>
+</div>
 
-            let tableBody = document.getElementById('result-table');
-            tableBody.innerHTML = ''; // Clear existing table data
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('search-button').addEventListener('click', function() {
+        // Example data
+        const apiData = {/* previously defined JSON data */};
 
-            apiData.peer_companies.forEach(company => {
-                let row = `<tr>
-                    <td>${company.company_name}</td>
-                    <td>${company.ticker}</td>
-                    <td>${company.business_description}</td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            });
+        let tableBody = document.getElementById('result-table');
+        tableBody.innerHTML = ''; // Clear existing table data
 
-            // Show the results container
-            document.getElementById('results-container').style.display = 'block';
+        apiData.peer_companies.forEach(company => {
+            let row = `<tr>
+                <td>${company.company_name}</td>
+                <td>${company.ticker}</td>
+                <td>${company.business_description}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
         });
-    </script>
+
+        // Dynamically add navbar
+        if (!document.querySelector('.navbar')) {
+            let navbar = `<nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">SmartPeers.ai</a>
+            </nav>`;
+            document.body.insertAdjacentHTML('afterbegin', navbar);
+        }
+
+        // Adjust layout
+        document.getElementById('search-container').style.height = 'auto';
+        document.getElementById('results-container').style.display = 'block';
+    });
+</script>
 </body>
 </html>
